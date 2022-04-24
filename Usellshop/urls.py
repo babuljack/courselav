@@ -1,7 +1,12 @@
 from django.urls import path
 from . import views
 from .extraforms import CourseInlineForm
+from django.urls import re_path as url
+from django.views.static import serve 
+from django.conf import settings
 urlpatterns = [
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('',views.Home),
     path('courseview/<str:slug>',views.CourseView,name="courseview"),
     path('signup',views.SignUp,name="signup"),
