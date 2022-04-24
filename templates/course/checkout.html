@@ -279,7 +279,7 @@
         "description": "Payment For :{{course.title}}",
         "image": "https://png.pngtree.com/element_pic/00/16/07/115783931601b5c.jpg",
         "order_id": "{{order.id}}", 
-         "callback_url": "http://localhost:8000/verify_payment",
+         "callback_url": "{{ request.scheme }}://{{ request.META.HTTP_HOST }}/verify_payment",
         "prefill": {
             "name": "{{user.first_name}}",
             "email": "{{user.email}}",
