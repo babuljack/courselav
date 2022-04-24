@@ -1,0 +1,82 @@
+{% extends 'course/base.html' %}
+{% load static %}
+{% block assets %}
+<link rel="stylesheet" href="{% static 'courses/css/upload.css'%}">
+{% endblock %}
+{% block title %}
+Upload course
+{% endblock %}
+
+{% block content %}
+
+  
+  <div class="upload">
+    {% if messages %}   
+    {% for message in messages %}        
+    <div class="alert alert-{{ message.tags }} mb-0 alert-dismissible fade show" role="alert">
+        <strong>Message: </strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %} 
+    <form action="" method="post" novalidate enctype="multipart/form-data">
+
+       {% csrf_token %}
+       
+      {% csrf_token %}
+        <h1>Course</h1>
+        {% for fm in courseform %}
+          <div class="input-form"> 
+            {{fm.label_tag}}  {{fm}} <p class="errors">{{fm.errors|striptags}}</p> 
+         </div>  
+        {% endfor %} 
+      
+        <div class="tag">
+          <h1>Tag</h1>
+          {% for fm in tagform %}
+          <div class="input-form"> 
+            <li class="tag-adjust">{{fm.label_tag}}  {{fm}}  <p class="errors">{{fm.errors|striptags}}</p> </li>
+            
+            
+           <p class="clicktag" id="clicktag">Add antoher</p>
+         </div>  
+        {% endfor %} 
+        </div>
+        
+        <div class="pre">
+          <h1>Prerequisite</h1>
+          {% for fm in preform %}
+          <div class="input-form"> 
+            {{fm.label_tag}}  {{fm}} <p class="errors">{{fm.errors|striptags}}</p> 
+         </div>  
+        {% endfor %} 
+        </div>
+        <div class="learning">
+          <h1>Learning</h1>
+          {% for fm in learningform %}
+          <div class="input-form"> 
+            {{fm.label_tag}}  {{fm}} <p class="errors">{{fm.errors|striptags}}</p> 
+         </div>  
+        {% endfor %} 
+        </div>
+         <div class="video">
+          <h1>Video</h1>
+          {% for fm in videoform %}
+          <div class="input-form"> 
+            {{fm.label_tag}}  {{fm}} <p class="errors">{{fm.errors|striptags}}</p> 
+         </div>  
+        {% endfor %} 
+         </div>
+      
+
+    <input type="submit" value="Upload" class="submit">
+    </form>
+  </div>  
+
+{% block js %}
+<script src="{% static 'courses/js/upload.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

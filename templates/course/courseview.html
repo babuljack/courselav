@@ -1,0 +1,161 @@
+{% extends 'course/base.html' %}
+{% load static %}
+{% block assets %}
+<link rel="stylesheet" href="{% static 'courses/css/scrollbar.css'%}">
+<script src="{% static 'courses/js/course_page.js' %}"></script>
+
+<style>
+
+    .no-preview{
+        cursor: not-allowed;
+    }   
+    a:hover{
+        text-decoration: none;
+    }
+
+    a{
+        color: rgb(61, 59, 59);
+    }
+
+    .active-video-link{
+        color: green;
+    }
+
+    .active-video-link:hover{
+        margin-left:5px;
+
+    }
+    
+</style>
+{% endblock %}
+{% block title %}
+Course View
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <div>
+    
+        <br>
+
+        <div class="card p-3">
+        <h2> <span class="text-danger">Now Playing: </span> {{course}} {% if lecture %}- lecture: {{lecture}} {% endif %}</h2>
+            <div class="row">
+                <!-- youtube player -->
+                <div class="col" style="background-color: black;color:whitesmoke">
+                    <div class="mx-auto">
+                        {% if video.video.url %}
+
+                        <video id="player" class="mx-auto" width="100%" height="315" controls autoplay>
+                            <source src="{{video.video.url}}" type="video/mp4" > </source>
+                          </video>
+
+                        
+                        {% else %}
+                        
+                        <div id="player" class="mx-auto" width="100%" height="315">
+                            <div class="col mt-3 mx-auto p-4"> 
+
+                                <h1>Buy Course</h1>
+                              <a  href="{% url 'check-out' slug %}" class="btn btn-warning mt-3 bg-light p-2">Click to Continue</a>
+                               </div>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <!-- leacture list -->
+                <div class="col-3">
+                 <h6> <span style="color:red;">Playlist:</span>  {{course}}</h6>
+                                        
+                    <div class="accordion" id="accordionExample">
+                        {% for module,videos in modules.items  %}
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">
+                            {{module}}
+                            </button>
+                          </h2>
+                          <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse
+
+                              " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+
+
+                                
+                                <ul id='video_list' class="list-group overflow-y-scroll">
+
+           
+                                    {% for v in videos %}
+                                        <li
+                                         class="list-group-item {% if v == video %} active-video {% endif %} ">
+                                         <a class="
+                                     
+                                        {% if not v.is_preview and not access %} 
+                                        text-muted no-preview
+                                        {% endif %}
+                                        {% if v == video %} active-video-link {% endif %}
+                                         
+                                         " href="?lecture={{v.serial}}" style="text-decoration: none;">
+                                         
+                                         
+                                         {% if access %}
+                                         {{v.serial}}.{{v.title}}<span style="margin-left: 10px;color:black;font-size: 14px;"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
+                                             
+                                         {% elif v.is_preview %}
+                                         {{v.serial}}.{{v.title}}<span style="margin-left: 10px;color:black;font-size: 14px;"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
+                                         {% else %}
+                                         {{v.serial}}.{{v.title}}
+                                         {% endif %}
+                                             
+                                         <span style="color:black;font-size:14px;margin-left:20px;">{{v.vlength}}</span>
+                                          
+                                            </a>
+
+                                            <p style='color:gray;font-size: 13px;'>{{v.desc}}</p>
+                                        </li>
+                                    {% endfor %}
+                               
+                                </ul>
+
+
+
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                      
+
+                
+                   
+                </div>
+            </div>
+<!-- <div class="row">
+<div class="footer col-12">
+    <div class="btn-group me-3" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-info" onclick="alert('We are working on this')" >Disscusion</button>
+        <button type="button" class="btn btn-success" onclick="alert('We are working on this')" >Recommandations</button>
+        <button type="button" class="btn btn-warning" onclick="alert('We are working on this')">Notes</button>
+     </div>
+
+</div>
+</div> -->
+        </div>
+
+       <br>
+        <br>
+        <br>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

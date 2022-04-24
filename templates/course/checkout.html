@@ -1,0 +1,315 @@
+{% extends 'course/base.html' %}
+{% block title %}
+   checkout
+{% endblock %}
+
+{% block content %}
+
+
+
+{% if buy %}
+{{buy}}
+{% endif %}
+
+
+<div class="main">
+  <div class="row d-flex justify-content-center p-0 m-0">
+
+    <div class="col-md-4 col-lg-3 m-3">
+        <div class="card mx-auto shadow" >
+            <a href="{% url 'check-out' course.slug %}"><img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap"></a>
+            <div class="card-body mt-0 ">
+                <div class="d-flex justify-content-between align-item-center">
+                <a href="{% url 'check-out' course.slug %}" class="card-title text-decoration-none">{{course.title}}</a>
+                    <p class="card-text m-0 p-1 bg-danger text-center rounded-circle text-white">
+                        - {% if cpdiscount %}
+                        {{cpdiscount}}
+                    {% else %}
+                        {{course.discount}}
+                    {% endif %}%
+                    </p>
+               </div>
+                    <p class="p-0 m-0">
+                    <span class="price">
+                        <del style="color: #ff07aa ;">$ 
+                            {{course.price}}
+                             </del>
+                        &nbsp;
+
+                        <span class="text-success">Price: ${% if cpdiscount %}
+                            {{copundiscount}}
+                        {% else %}
+                            {{course.discounts}}
+                        {% endif %} </span>
+                    </span>
+
+                </p>
+            </div>
+
+            <div class="card-footer p-0 shadow">
+
+                <div class="row">
+                    
+                    {% if enroll %}
+                    <div class="text-center bg-warning">
+                        <a href="{% url 'courseview' course.slug %}" class="btn text-success btn-block">Watch now</a>
+                    </div>
+                    {% else %}
+                    
+                    {% if copun %}
+
+                    <div class="text-center bg-warning">
+                        <a href="?action=payment&copun={{copun.code}}" class="btn text-success btn-block">Buy Now</a>
+                    </div> 
+                       
+                    {% else %}
+
+                    <div class="text-center bg-warning">
+                        <a href="?action=payment" class="btn text-success btn-block">Buy Now</a>
+                    </div> 
+                        
+                    {% endif %}
+                        
+                                         
+                    {% endif %}
+                        
+
+            
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mt-3">
+        <h3>Modules</h3>
+        <div class="">
+        
+                    
+            <div class="accordion" id="accordionExample">
+                {% for module,videos in modules.items  %}
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">
+                    {{module}}
+                    </button>
+                  </h2>
+                  <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse
+
+                      " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+
+
+                        
+                        <ul id='video_list' class="list-group overflow-y-scroll">
+
+   
+                            {% for v in videos %}
+                                <li
+                                 class="list-group-item {% if v == video %} active-video {% endif %} ">
+                                 <a class="
+                             
+                                {% if not v.is_preview and not access %} 
+                                text-muted no-preview
+                                {% endif %}
+                                {% if v == video %} active-video-link {% endif %}
+                                 
+                                 " href="{% url 'courseview' course.slug %}?lecture={{v.serial}}" style="text-decoration: none;">
+                                 
+                                 
+                                 {% if access %}
+                                 {{v.serial}}.{{v.title}}<span style="margin-left: 10px;color:black;font-size: 14px;"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
+                                     
+                                 {% elif v.is_preview %}
+                                 {{v.serial}}.{{v.title}}<span style="margin-left: 10px;color:black;font-size: 14px;"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
+                                 {% else %}
+                                 {{v.serial}}.{{v.title}}
+                                 {% endif %}
+                                     
+                                 <span style="color:black;font-size:14px;margin-left:20px;">{{v.vlength}}</span>
+                                  
+                                    </a>
+
+                                    <p style='color:gray;font-size: 13px;'>{{v.desc}}</p>
+                                </li>
+                            {% endfor %}
+                       
+                        </ul>
+
+
+
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              
+
+        
+           
+        </div>
+    </div>
+
+
+   <div class="col-md-4 mt-3"> 
+
+    <div class="files">
+        <h6>This course includes:</h4>
+ <ul class="ml-5">   <li>High quality videos</li>
+    <li>Good communication</li>
+    <li>Perfect Viusalization</li>
+    <li>Extra notes</li>
+    <li>24 hours support</li></ul>
+    </div>
+ 
+
+   
+
+    
+    {% if enroll %}
+    <h5>Thank you for Buy this Course.</h5>
+    <a  href="{% url 'courseview' course.slug %}" class="btn btn-warning mt-3  p-2">Watch</a>
+    {% else %}
+    
+    {% if copun %}
+    <h5>Buy Course</h5>
+    <a  href="?action=payment&copun={{copun.code}}" class="btn btn-primary mt-3  p-2">Click to Continue</a>
+    {% else %}
+    <h5>Buy Course</h5>
+    <a  href="?action=payment" class="btn btn-primary mt-3  p-2">Click to Continue</a>
+    {% endif %}
+        
+  
+    {% endif %}
+        
+  
+  
+  {% if cpdiscount %}
+  <h5 class="p-2 border text-success">You have got {{cpdiscount}} % discount</h5>
+  {% elif error_copun %}
+  <h5 class="p-2 border text-danger">{{error_copun}}</h5>
+  {% endif %}
+      
+
+  
+  {% if not enroll  %}
+  
+  <div class="copun p-3 border shadow-sm border-primary m-3 bg-info" >
+    <p class="text-white">Copun</p>
+  <form action="" method="get">
+      <input type="text" name="copun" class="form-control">
+      <input type="submit" value="Apply" class="btn btn-primary">
+  </form>
+</div>
+  {% endif %}
+
+   </div>
+
+
+  </div>  
+
+  <div class="details container">
+    <p>Descriptions:</p>
+            <!-- Learnngs -->
+            <div class="mt-3">
+                Tags:
+                {% for tag in course.tag_set.all %}
+                   <a href="{{tag.title}}" class="d-inline text-decoration-none badge bg-primary">#{{tag.title}}</a>
+                {% endfor %}
+                    
+             </div>
+    
+            <!-- learning end -->
+    
+            <!-- course details -->
+    
+    
+            <div class="mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{course.title}}</h5>
+                        <p class="card-text">{{course.desc}}</p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Prerequite -->
+            <div class="mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Prerequisite</h5>
+                        <p class="card-text">
+                        <ol>
+                            {% for pre in course.prerequisite_set.all %}
+                            <li class="">{{pre.title}}</li>
+                            {% endfor %}
+                        </ol>
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Learnngs -->
+            <div class="mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Learnings</h5>
+                        <p class="card-text">
+                        <ol>
+                            {% for l in course.learning_set.all %}
+                            <li class="">{{l.title}}</li>
+                            {% endfor %}
+                        </ol>
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+  </div>
+</div>
+
+
+{% block js %}
+
+{% if order is not None and not enroll %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<script>
+
+    var options = {
+        "key": "rzp_test_26WYBJdjNWA64A", // Enter the Key ID generated from the Dashboard
+        "name": "CourseLav",
+        "description": "Payment For :{{course.title}}",
+        "image": "https://png.pngtree.com/element_pic/00/16/07/115783931601b5c.jpg",
+        "order_id": "{{order.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "http://localhost:8000/verify_payment",
+        "prefill": {
+            "name": "{{user.first_name}}",
+            "email": "{{user.email}}",
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+
+    rzp1.open();
+
+</script>
+{% endif %}
+
+{% if error is not None %}
+
+<script>
+
+    window.onload = ()=>{
+        alert("{{error}}")
+    }
+
+</script>
+
+{% endif %}
+
+{% endblock %}
+{% endblock %}

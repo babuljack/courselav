@@ -1,0 +1,77 @@
+{% extends 'course/base.html' %}
+
+{% block title %}
+  HomePage
+{% endblock %}
+{% load custom %}
+{% block content %}
+
+<div class="course">
+  <div class="m-0 p-0 row">
+    {% for course in courses %}
+    <div class="col-md-4 col-lg-3 m-3">
+        <div class="card mx-auto shadow" >
+            <a href="{% url 'check-out' course.slug %}"><img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap"></a>
+            <div class="card-body mt-0 ">
+                <div class="d-flex justify-content-between align-item-center">
+                <a href="{% url 'check-out' course.slug %}" class="card-title text-decoration-none">{{course.title}}</a>
+                    <p class="card-text m-0 p-1 bg-danger text-center rounded-circle text-white">
+                        - {{course.discount}}%
+                    </p>
+               </div>
+                    <p class="p-0 m-0">
+                    <span class="price">
+                        <del style="color: #ff07aa ;">$ {{course.price}}</del>
+                        &nbsp;
+
+                        <span class="text-success">Price: ${{course.discounts}}</span>
+                    </span>
+
+                </p>
+            </div>
+
+            <div class="card-footer p-0 shadow">
+                {% is_enrolled request course as enrolled %}
+                <div class="row">
+                    {% if enrolled %}
+                    <div class="col text-center bg-danger">
+                        <a href="{% url 'courseview' course.slug %}" class="btn text-white text-center">Start Course</a>
+                    </div>
+                    {% else %}
+                    <div class="d-flex justify-content-around">
+                    
+                        <a href="/check-out/{{course.slug}}" class="btn btn-success btn-block">Enroll Now</a>
+                 
+                        <a href="{% url 'courseview' course.slug %}" class="btn   btn-block btn-danger">Show More</a>
+                    
+                </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+ 
+
+    {% endfor %}
+   
+   
+    <!-- <iframe  src="" id="video"></iframe> -->
+   <!--  <iframe width="560" height="315" src="https://www.youtube.com/embed/ty_x0KCECfY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; " allowfullscreen></iframe>
+ -->  </div>  
+</div>
+{% endblock %}
+
+
+
+{% block js %}
+{{code|json_script:"mydata"}}
+ <script>
+ let mydata=JSON.parse(document.getElementById('mydata').textContent);
+ console.log(mydata)
+ let video=document.getElementById('video');
+ video.src=mydata;
+ </script>
+
+{% endblock %}
