@@ -5,6 +5,7 @@ cffi==1.15.0
 charset-normalizer==2.0.12
 cryptography==36.0.2
 decorator==4.4.2
+dj-database-url==0.5.0
 dj-static==0.0.6
 Django==4.0.2
 django-4-jet==1.0.8
@@ -26,3 +27,4 @@ sqlparse==0.4.2
 static3==0.7.0
 tqdm==4.62.3
 urllib3==1.26.8
+whitenoise==6.0.0
