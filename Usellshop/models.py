@@ -69,15 +69,6 @@ class Video(models.Model):
     
     def __str__(self):
         return self.title
-
-    @property
-    def vlength(self):
-        templink=self.video.url
-        reallink=f'http://127.0.0.1:8000{templink}'
-        clip = VideoFileClip(reallink)
-        duration = clip.duration
-        video_time = str(datetime.timedelta(seconds = int(duration)))
-        return video_time
         
 #it will be helpfull for mycourse.
 class UserCourse(models.Model):
