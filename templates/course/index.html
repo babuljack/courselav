@@ -4,13 +4,29 @@
   HomePage
 {% endblock %}
 {% load custom %}
+
 {% block content %}
 
+
+
+
+<div class="container">
+
+
+	<!-- course section -->
+    <div class="section-title mb-0 container">
+        <h2 class="text-center">||Our Courses||</h2>
+       ** <p class="fst-italic text-success">We Provide Best Hand-made Courses</p> **
+    </div>
+	<!-- course section end -->
+</div>
+
+<div class="container">
 <div class="course">
   <div class="m-0 p-0 row">
     {% for course in courses %}
-    <div class="col-md-4 col-lg-3 m-3">
-        <div class="card mx-auto shadow" >
+    <div class="col-md-4 col-sm-6 col-9 col-lg-3 m-3 mx-auto">
+        <div class="card  shadow" style="width: 250px;">
             <a href="{% url 'check-out' course.slug %}"><img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap"></a>
             <div class="card-body mt-0 ">
                 <div class="d-flex justify-content-between align-item-center">
@@ -56,11 +72,50 @@
 
     {% endfor %}
    
+
+
+
    
     <!-- <iframe  src="" id="video"></iframe> -->
    <!--  <iframe width="560" height="315" src="https://www.youtube.com/embed/ty_x0KCECfY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; " allowfullscreen></iframe>
  -->  </div>  
 </div>
+</div>
+
+<br>
+<br>
+   <!-- subscribe start -->
+   <div class="subscribe-area shadow container-fluid">
+    <div class="container ">
+        <div class="subscribe-box ">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1 col-lg-10 offset-lg-1 col-md-12">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-6 col-lg-7 col-md-8">
+                            <div class="subscribe-text">
+                                <h1>Subscribe</h1>
+                                <span>Enter your email and get latest updates and offers subscribe us</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-5 col-md-4 justify-content-end">
+                            <div class="email-submit-form">
+                                <div class="subscribe-form">
+                                    <form action="#">
+                                        <input placeholder="Enter your email" type="email">
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- subscribe end -->
+
+
 {% endblock %}
 
 

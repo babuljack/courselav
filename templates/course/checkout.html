@@ -151,7 +151,7 @@
     </div>
 
 
-   <div class="col-md-4 mt-3"> 
+   <div class="col-md-4 mt-3" style="border-left:2px solid rgb(209, 209, 209);"> 
 
     <div class="files">
         <h6>This course includes:</h4>
@@ -194,7 +194,7 @@
   
   {% if not enroll  %}
   
-  <div class="copun p-3 border shadow-sm border-primary m-3 bg-info" >
+  <div class="copun p-3 border shadow-sm border-primary m-3 " style="background-color: #0d4551 !important;" >
     <p class="text-white">Copun</p>
   <form action="" method="get">
       <input type="text" name="copun" class="form-control">
@@ -207,14 +207,14 @@
 
 
   </div>  
-
+<hr>
   <div class="details container">
-    <p>Descriptions:</p>
+    <h3>About:</h3>
          
             <div class="mt-3">
                 Tags:
                 {% for tag in course.tag_set.all %}
-                   <a href="{{tag.title}}" class="d-inline text-decoration-none badge bg-primary">#{{tag.title}}</a>
+                   <a href="{{tag.slug}}" class="d-inline text-decoration-none badge bg-primary">#{{tag.title}}</a>
                 {% endfor %}
                     
              </div>

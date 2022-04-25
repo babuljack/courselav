@@ -1,8 +1,79 @@
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  
-  }
 
-ul li a{
-    color:red;
+body{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.container-new{
+  width: 95%;
+  margin: 0 auto;
+}
+
+
+/*footer*/
+.subscribe-box {
+  padding: 40px 0px;
+  background-color: #fdc800;
+}
+
+.subscribe-text h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 800;
+  color: #002147;
+  line-height: 1;
+}
+
+.subscribe-text span {
+  font-size: 14px;
+  color: #002147;
+  line-height: 1;
+  margin: 0;
+  margin-top: 10px;
+  display: block;
+}
+
+.subscribe-form form {
+  position: relative;
+}
+
+.email-submit-form {
+  margin-top: 7px;
+}
+
+.subscribe-form form input {
+  height: 46px;
+  background: #fff;
+  border: 0;
+  border-radius: 30px;
+  padding-left: 20px;
+  width: 100%;
+}
+
+.subscribe-form form input:placeholder {
+  font-size: 13px;
+  color: #002147;
+
+}
+
+.subscribe-form form i {
+  top: 50%;
+  position: absolute;
+  right: 35px;
+  color: #002147;
+  font-size: 15px;
+  transform: translateY(-50%);
+}
+
+
+.subscribe-box {
+  padding: 40px 0px;
+  background-color: #fdc800;
+  margin-bottom: -73px;
+  position: relative;
+  z-index: 8;
+}
+
+.subscribe-form form input::placeholder {
+  font-size: 13px;
+  color: #002147;
 }

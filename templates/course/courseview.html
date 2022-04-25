@@ -44,7 +44,7 @@ Course View
         <h2> <span class="text-danger">Now Playing: </span> {{course}} {% if lecture %}- lecture: {{lecture}} {% endif %}</h2>
             <div class="row">
                 <!-- youtube player -->
-                <div class="col" style="background-color: black;color:whitesmoke">
+                <div class="col-md" style="background-color: black;color:whitesmoke">
                     <div class="mx-auto">
                         {% if video.video.url %}
 
@@ -70,7 +70,7 @@ Course View
                 </div>
 
                 <!-- leacture list -->
-                <div class="col-3">
+                <div class="col-md-3">
                  <h6> <span style="color:red;">Playlist:</span>  {{course}}</h6>
                                         
                     <div class="accordion" id="accordionExample">
