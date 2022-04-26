@@ -1,7 +1,7 @@
 {% extends 'course/base.html' %}
 
 {% block title %}
-  HomePage
+  Home|Course
 {% endblock %}
 {% load custom %}
 
@@ -85,29 +85,12 @@
 <br>
 <br>
    <!-- subscribe start -->
-   <div class="subscribe-area shadow container-fluid">
-    <div class="container ">
-        <div class="subscribe-box ">
-            <div class="row">
-                <div class="col-xl-10 offset-xl-1 col-lg-10 offset-lg-1 col-md-12">
-                    <div class="row justify-content-between">
-                        <div class="col-xl-6 col-lg-7 col-md-8">
-                            <div class="subscribe-text">
-                                <h1>Subscribe</h1>
-                                <span>Enter your email and get latest updates and offers subscribe us</span>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-5 col-md-4 justify-content-end">
-                            <div class="email-submit-form">
-                                <div class="subscribe-form">
-                                    <form action="#">
-                                        <input placeholder="Enter your email" type="email">
-                                        <i class="fas fa-long-arrow-alt-right"></i>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+   <div class="row d-flex justify-content-center align-items-center rows ">
+    <div class="col-md-10 ">
+        <div class="card" style="background:#dddcd9cf !important">
+            <div class="text-center"> <img src="https://i.imgur.com/Dh7U4bp.png" width="200"> <span class="d-block mt-3">Subscribe to our newsletter in order not to miss new arrivals <br> promotions and discounts of our store</span>
+                <div class="mx-5">
+                    <div class="input-group mb-3 mt-4"> <input type="text" class="form-control" placeholder="Enter email" aria-label="Recipient's username" aria-describedby="button-addon2"> <button class="btn btn-success border-rad" type="button" id="button-addon2" onclick="alert('Thank You to be with us!')" >Subscribe</button> </div>
                 </div>
             </div>
         </div>
